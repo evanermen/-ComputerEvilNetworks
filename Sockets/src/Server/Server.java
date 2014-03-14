@@ -7,7 +7,7 @@ import java.io.*;
 public class Server {
 	private Socket socket = null;
 	public int portNumber = 1234;
-	private PrintWriter out;
+	private static PrintWriter out;
 
 	public Server() {
 		
@@ -41,7 +41,7 @@ public class Server {
 		this.out = out;
 	}
 	
-	public void print(String input) {
+	public static void print(String input) {
 		out.println(input);
 	}
 

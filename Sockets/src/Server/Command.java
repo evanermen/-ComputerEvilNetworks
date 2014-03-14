@@ -1,9 +1,16 @@
 package Server;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class Command {
 
@@ -16,6 +23,9 @@ public class Command {
 		}
 		if(command.equals("PUT")) {
 			doPutCommand(dir, newFile);
+		}
+		if(command.equals("POST")) {
+			doPostCommand(input, dir);
 		}
 	}
 
@@ -48,14 +58,19 @@ public class Command {
 		br.close();
 	}
 	
-	private void doPutCommand(String dir, String newFile) {
-		File temp = new File("C:/Users/Milan/git/-ComputerEvilNetworks/Sockets/src/Server/" + newFile);
-		
-		if(temp.exists())
-		  temp.delete();
+	private void doPutCommand(String dir, String newFile) throws IOException {
+		Path from = new File("C:/Users/Milan/git/-ComputerEvilNetworks/Sockets/src/Server/" + newFile).toPath(); //convert from File to Path
+		Path to = Paths.get(dir); //convert from String to Path
+		Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
 	}
 
-	
+	private void doPostCommand(String input, String dir) {
+		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("C:/Users/Milan/git/-ComputerEvilNetworks/Sockets/src/Server/" + dir, true)))) {
+		    out.println(input);
+		}catch (IOException e) {
+		    //exception handling left as an exercise for the reader
+		}
+	}
 
 
 

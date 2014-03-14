@@ -21,12 +21,16 @@ public class ServerProtocol {
 		if (state == WAITING) {
 			
 			String[] input = inputLine.split(" ");
-			if input.size 
-			if (checkDirectory(input[1])){
+			if (input.length != 3){
+				System.out.println("lenght is wrong");
+				Server.print("Expected 3 arguments:  <GET/HEAD/PUT/POST> <directory> <HTTP>");} 
+			String directory = input[1];
+			if (checkDirectory(directory)){
 				String command = input[0];
 				theOutput = command;
+				
 				if (command.equals("GET")){
-					theOutput = "the whole txt file";
+					doCommand("GET", directory ) ;
 				}
 				else if (command.equals("HEAD")){
 					theOutput = "the head";
@@ -34,7 +38,6 @@ public class ServerProtocol {
 				else if (command.equals("PUT")){
 					theOutput = "Uitleg whattoput";
 					state = PUT;
-					
 					}
 				else if (command.equals("POST")){
 					theOutput = "Uitleg whattopost";
@@ -45,6 +48,8 @@ public class ServerProtocol {
 			else {theOutput = "TODO 404 ofzo Unknown directory.";}
 
 		}
+		
+		if (state = PUT){}
 
 		return theOutput;
 	}

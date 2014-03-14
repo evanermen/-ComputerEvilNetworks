@@ -1,0 +1,53 @@
+package Server;
+
+public class ServerProtocol {
+
+	private static final int WAITING = 0;
+	private static final int PUT = 1;
+	private static final int POST = 2;
+	private int state = WAITING;
+	
+
+	public ServerProtocol() {
+
+	}
+
+	public String processInput(String inputLine) {
+		String theOutput = null;
+		System.out.println(state);
+		System.out.println("hiep hoi");
+
+		if (state == WAITING) {
+			
+			String[] input = inputLine.split(" ");
+			theOutput = input[0] + input[1]+ input[2];
+			if (checkDirectory(input[1])){
+				String command = input[0];
+				if (command == "GET"){
+					theOutput = "the whole txt file";
+				}
+				else if (command == "HEAD"){
+					theOutput = "the head";
+				}
+				else if (command == "PUT"){
+					theOutput = "Uitleg whattoput";
+					state = PUT;
+					}
+				else if (command == "POST"){
+					theOutput = "Uitleg whattopost";
+					state = POST;
+				}
+			}
+
+			else {theOutput = "TODO 404 ofzo Unknown directory.";}
+
+		}
+
+		return theOutput;
+	}
+
+	private boolean checkDirectory(String dir){
+		//TODO: implement :)
+		return true;
+	}
+}

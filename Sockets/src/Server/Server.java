@@ -7,18 +7,19 @@ import java.io.*;
 public class Server {
 	private Socket socket = null;
 	public int portNumber = 1234;
+	private PrintWriter out;
 
 	public Server() {
-
+		
 		try ( 
 				ServerSocket serverSocket = new ServerSocket(portNumber);
 				Socket clientSocket = serverSocket.accept();
-				PrintWriter out =
-						new PrintWriter(clientSocket.getOutputStream(), true);
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				
 				BufferedReader in = new BufferedReader(
 						new InputStreamReader(clientSocket.getInputStream()));
 				) {
-
+			setPrintWriter(out);
 			String inputLine, outputLine;
 			out.println("Hello!");
 			ServerProtocol sp = new ServerProtocol();
@@ -34,9 +35,14 @@ public class Server {
 					+ portNumber + " or listening for a connection");
 			System.out.println(e.getMessage());
 		}
-
-
-
+	}
+	
+	private void setPrintWriter(PrintWriter out) {
+		this.out = out;
+	}
+	
+	public void print(String input) {
+		out.println(input);
 	}
 
 	

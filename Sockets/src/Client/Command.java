@@ -42,7 +42,6 @@ public class Command {
 		if(this.commandString == null) {
 			System.err.println(
 					"Expected <HTTP-command>: {HEAD, GET, PUT, POST}");
-			System.exit(1);
 		}
 	}
 
@@ -122,7 +121,7 @@ public class Command {
 	}
 
 	private void saveText(String fromUser) {
-
+			
 	}
 
 

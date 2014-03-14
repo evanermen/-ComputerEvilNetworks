@@ -41,7 +41,6 @@ public class Client {
 		if(this.inputToServer.size() != 2) {
 			System.err.println(
 					"Expected 2 arguments:  <host name> <port number>");
-			System.exit(1);
 		}
 	}
 
@@ -56,7 +55,6 @@ public class Client {
 		}
 		catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + hostName);
-			System.exit(1);
 		} 
 	}
 
@@ -71,7 +69,9 @@ public class Client {
 				while(!(readInput = readInput()).equals("")){      
 					fromUser = readInput;						//reads input from second line = command to server.
 				}
-
+				
+				checkCommand(fromUser);
+				
 				out.println(fromUser);
 				out.println();
 				out.flush(); 
@@ -89,6 +89,15 @@ public class Client {
 			}
 		}
 	}
+
+	private void checkCommand(String fromUser) {
+		String[] tokens = fromUser.split(" ");
+		if(tokens.length != 3) {
+			System.err.println("Expected 3 arguments <Command> <Directory> <HTTP>");
+		}
+		
+	}
+
 
 	private void doCommand(String fromUser,	Socket socket) throws IOException {
 		Command command = new Command(fromUser, socket);		

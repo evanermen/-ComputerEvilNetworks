@@ -1,5 +1,8 @@
 package Server;
 
+import java.io.File;
+import java.io.IOException;
+
 public class ServerProtocol {
 
 	private static final int WAITING = 0;
@@ -47,7 +50,11 @@ public class ServerProtocol {
 	}
 
 	private boolean checkDirectory(String dir){
-		//TODO: implement :)
-		return true;
+		boolean check = new File("C:/Users/Milan/git/-ComputerEvilNetworks/Sockets/src/Server/", dir).exists();
+		return check;
+	}
+	
+	private void doCommand(String command, String dir) throws IOException {
+		Command commandObject = new Command(command, dir);
 	}
 }
